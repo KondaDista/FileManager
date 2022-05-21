@@ -15,6 +15,9 @@ namespace Kursach
     public partial class Form1 : Form
     {
         public string path;
+        public string localpath;
+        public string[] discs;
+        public string dragitem;
         private int cut = 0;
         DriveInfo[] drivers;
        // string[] main = { "System", "Корзина", "Документы", "Изображения" };
@@ -45,6 +48,7 @@ namespace Kursach
                 listView1.Items.Add(s, 1);
             }
             drivers = DriveInfo.GetDrives();
+            discs = Environment.GetLogicalDrives();
             GetItems(path, listView1);
         }
 
@@ -776,7 +780,7 @@ namespace Kursach
 
         private void aboutTheProgramToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("О программе");
+            MessageBox.Show("Операционные системы и оболочки\nЯзык программирования: C#\nКонцевич Даниил Дмитриевич\nРПИС-03");
         }
         private void referenceToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -826,6 +830,106 @@ namespace Kursach
             }
         }
 
-        
+
+
+        private void listView1_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            ListViewItem itemdrag = listView1.FocusedItem;
+
+            if (discs.Contains(itemdrag.Text) || discs.Contains(path))
+            {
+                localpath = path + itemdrag.Text;
+            }
+            else
+            {
+                localpath = path + "\\" + itemdrag.Text;
+            }
+
+            if (localpath.Length == 3)
+            {
+                if (new DriveInfo(localpath).DriveType == DriveType.Fixed)
+                {
+                    MessageBox.Show("No access!");
+                }
+                else
+                {
+                    MessageBox.Show("No access!");
+                }
+            }
+            else if (new DriveInfo(localpath.Substring(0, 3)).DriveType == DriveType.Fixed && localpath.Contains("System"))
+            {
+                MessageBox.Show("No access!");
+            }
+            else if (itemdrag.Text == "Корзина")
+            {
+                MessageBox.Show("No access!");
+            }
+
+            else if (localpath.Split('\\').Length == 2 && localpath.Split('\\')[1].Equals("FileManager"))
+            {
+                MessageBox.Show("No access!");
+            }
+            else
+            {
+                dragitem = localpath;
+                listView1.DoDragDrop(itemdrag, DragDropEffects.Move);
+            }
+        }
+        private void listView1_DragDrop(object sender, DragEventArgs e)
+        {
+            ListViewItem item = listView1.SelectedItems[0];
+
+            if (discs.Contains(item.Text) || discs.Contains(path))
+            {
+                localpath = path + item.Text;
+            }
+            else
+            {
+                localpath = path + "\\" + item.Text;
+            }
+
+            DirectoryInfo targetinfo = new DirectoryInfo(localpath);
+            DirectoryInfo dragedinfo = new DirectoryInfo(dragitem);
+            if ((targetinfo.Attributes & FileAttributes.Directory) != 0)
+            {
+                if ((dragedinfo.Attributes & FileAttributes.Directory) != 0)
+                {
+                    try
+                    {
+                        Directory.Move(dragedinfo.FullName, Path.Combine(targetinfo.FullName, dragedinfo.Name));
+                    }
+                    catch (Exception exception)
+                    {
+                        MessageBox.Show(exception.Message);
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        File.Move(dragedinfo.FullName, Path.Combine(targetinfo.FullName, dragedinfo.Name));
+                    }
+                    catch (Exception exception)
+                    {
+                        MessageBox.Show(exception.Message);
+                    }
+                }
+            }
+
+            //listView1.Clear();
+            GetItems(path, listView1);
+        }
+        private void listView1_DragOver(object sender, DragEventArgs e)
+        {
+            ListViewItem dragover = listView1.HitTest(listView1.PointToClient(new Point(e.X, e.Y))).Item;
+
+            if(dragover != null)
+            {
+                dragover.Selected = true;
+            }
+            e.Effect = DragDropEffects.Move;
+
+        }
+
     }
 }
