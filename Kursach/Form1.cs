@@ -20,7 +20,7 @@ namespace Kursach
         public string dragitem;
         private int cut = 0;
         DriveInfo[] drivers;
-       // string[] main = { "System", "Корзина", "Документы", "Изображения" };
+        public string logfile = "logfile.txt";
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -33,7 +33,7 @@ namespace Kursach
             button1.Text = "Обзор";
             button1.Click += new EventHandler(button1_Click);
             button2.Text = "<<";
-            button2.Click += new EventHandler(button2_Click);
+            button2.Click += new EventHandler(button2_Click);           
             Start();
         }
 
@@ -96,6 +96,10 @@ namespace Kursach
                     textBox1.Text = path;
                     GetItems(path, listView1);
                 }
+
+                StreamWriter write = new StreamWriter(logfile, true);
+                write.WriteLine("[Back]" + "-Возврат к предыдущей директории -" + "[" + s[s.Length - 1] + "]" + ">>>" + "[" + path + "]" + "[" + DateTime.Now.ToString() + "]");
+                write.Close();
             }
         }
 
@@ -269,6 +273,10 @@ namespace Kursach
                     {
                         InsertToolStripMenuItem_Click(sender, e);
                     }
+                    else if (e.Control && e.KeyCode == Keys.R)
+                    {
+                        renameToolStripMenuItem_Click(sender, e);
+                    }
                 }
                 else
                 {
@@ -283,6 +291,10 @@ namespace Kursach
                     else if (e.KeyCode == Keys.Delete)
                     {
                         deleteToolStripMenuItem_Click(sender, e);
+                    }
+                    else if (e.Control && e.KeyCode == Keys.R)
+                    {
+                        renameToolStripMenuItem_Click(sender, e);
                     }
                 }
             }
@@ -316,6 +328,10 @@ namespace Kursach
                         path += f;
                         textBox1.Text = path;
                         GetItems(path, listView1);
+
+                        StreamWriter write = new StreamWriter(logfile, true);
+                        write.WriteLine("[Open]" + "-Переход к директории-" + "[" + f + "]" + "[" + path + '\\' + f + "]" + "[" + DateTime.Now.ToString() + "]");
+                        write.Close();
                     }
                     else
                     {
@@ -328,6 +344,10 @@ namespace Kursach
                         }
                         ff += f;
                         Process.Start(ff);
+
+                        StreamWriter write = new StreamWriter(logfile, true);
+                        write.WriteLine("[Open]" + "-Открытие файла-" + "[" + ff + "]" + "[" + path + '\\' + f + "]" + "[" + DateTime.Now.ToString() + "]");
+                        write.Close();
                     }
                 }
                 else if(listView1.FocusedItem.Text != "System")
@@ -443,6 +463,10 @@ namespace Kursach
                         path += f;
                         textBox1.Text = path;
                         GetItems(path, listView1);
+
+                        StreamWriter write = new StreamWriter(logfile, true);
+                        write.WriteLine("[Open]" + "-Переход к директории-" + "[" + f + "]" + "[" + path + '\\' + f + "]" + "[" + DateTime.Now.ToString() + "]");
+                        write.Close();
                     }
                     else
                     {
@@ -455,7 +479,12 @@ namespace Kursach
                         }
                         ff += f;
                         Process.Start(ff);
+
+                        StreamWriter write = new StreamWriter(logfile, true);
+                        write.WriteLine("[Open]" + "-Открытие файла-" + "[" + ff + "]" + "[" + path + '\\' + f + "]" + "[" + DateTime.Now.ToString() + "]");
+                        write.Close();
                     }
+                    
                 }
                 else
                 {
@@ -470,6 +499,10 @@ namespace Kursach
             string f = listView1.SelectedItems[0].Text;
 
             Clipboard.SetText(path + '\\' + f);
+
+            StreamWriter write = new StreamWriter(logfile, true);
+            write.WriteLine("[Copy]" + "-Обьект скопирован-" + "[" + f + "]" + "[" + path + '\\' + f + "]" + "[" + DateTime.Now.ToString() + "]");
+            write.Close();
 
         }
         static void CopyDirectory(string sourceDir, string destinationDir, bool recursive)
@@ -519,11 +552,19 @@ namespace Kursach
                     if (cut == 1)
                     {
                         Directory.Move(@"D:\Курсач\Корзина" + '\\' + name, path + '\\' + listView1.FocusedItem.Text + "\\" + name);
+
+                        StreamWriter write = new StreamWriter(logfile, true);
+                        write.WriteLine("[Insert]" + "-Вырезанная директоия вставлена-" + "[" + name + "]" + "[" + new DirectoryInfo(pathFile).FullName + "]" + "[" + DateTime.Now.ToString() + "]");
+                        write.Close();
                     }
                     else
                     {
                         Directory.CreateDirectory(path + '\\' + listView1.FocusedItem.Text + '\\' + name);
                         CopyDirectory(pathFile, path + '\\' + listView1.FocusedItem.Text + '\\' + name, true);
+
+                        StreamWriter write = new StreamWriter(logfile, true);
+                        write.WriteLine("[Insert]" + "-Скопированная директория вставлена-" + "[" + name + "]" + "[" + new DirectoryInfo(pathFile).FullName + "]" + "[" + DateTime.Now.ToString() + "]");
+                        write.Close();
                     }
                 }
                 else
@@ -532,10 +573,18 @@ namespace Kursach
                     {
                         File.Copy(@"D:\Курсач\Корзина" + '\\' + name, path + '\\' + listView1.FocusedItem.Text + '\\' + name, true);
                         File.Delete(@"D:\Курсач\Корзина" + '\\' + name);
+
+                        StreamWriter write = new StreamWriter(logfile, true);
+                        write.WriteLine("[Insert]" + "-Вырезанный файл вставлен-" + "[" + name + "]" + "[" + new DirectoryInfo(pathFile).FullName + "]" + "[" + DateTime.Now.ToString() + "]");
+                        write.Close();
                     }
                     else
                     {
                         File.Copy(pathFile, path + '\\' + listView1.FocusedItem.Text + '\\' + name, true);
+
+                        StreamWriter write = new StreamWriter(logfile, true);
+                        write.WriteLine("[Insert]" + "-Скопированный файл вставлен-" + "[" + name + "]" + "[" + new DirectoryInfo(pathFile).FullName + "]" + "[" + DateTime.Now.ToString() + "]");
+                        write.Close();
                     }
                 }
                 cut = 0;
@@ -554,13 +603,17 @@ namespace Kursach
 
                 if (Directory.Exists(MoveFolder + '\\' + f))
                 {
-                    MessageBox.Show("Такой файл уже существует", "Внимание!", MessageBoxButtons.OK);
+                    MessageBox.Show("Такая директория уже существует", "Внимание!", MessageBoxButtons.OK);
                 }
                 else
                 {
                     Directory.Move(pathFolder, MoveFolder + "\\" + f);
                     Clipboard.SetText(path + '\\' + f);
                     cut = 1;
+
+                    StreamWriter write = new StreamWriter(logfile, true);
+                    write.WriteLine("[Cut]" + "-Директоия вырезана-" + "[" + new DirectoryInfo(pathFolder).Name + "]" + "[" + new DirectoryInfo(pathFolder).FullName + "]" + "[" + DateTime.Now.ToString() + "]");
+                    write.Close();
                 }
             }
             else 
@@ -583,6 +636,10 @@ namespace Kursach
                         File.Move(sourceFile, destFile);
                         Clipboard.SetText(path + '\\' + f);
                         cut = 1;
+
+                        StreamWriter write = new StreamWriter(logfile, true);
+                        write.WriteLine("[Cut]" + "-Файл вырезан-" + "[" + new DirectoryInfo(pathFile).Name + "]" + "[" + new DirectoryInfo(pathFile).FullName + "]" + "[" + DateTime.Now.ToString() + "]");
+                        write.Close();
                     }
 
                 }
@@ -638,7 +695,18 @@ namespace Kursach
                     }
                 }             
             }
-        }     
+        }
+        private void renameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string f = listView1.SelectedItems[0].Text;
+            string pathF = path + "\\" + f;
+            string type = "Rename";
+
+            DirectoryInfo info = new DirectoryInfo(pathF);
+            Form2Rename renameDialog = new Form2Rename(this, type, info);
+            renameDialog.ShowDialog(this);
+            GetItems(path, listView1);
+        }
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string f = listView1.FocusedItem.Text;
@@ -647,7 +715,30 @@ namespace Kursach
             if (Directory.Exists(path + "\\" + f))
             {
                 string pathFolder = Path.Combine(path, f);
-                Directory.Move(pathFolder, MoveFolder + "\\" + f);
+
+                if (Directory.Exists(MoveFolder + '\\' + f))
+                {
+                    MessageBox.Show("Такая директория уже существует", "Внимание!", MessageBoxButtons.OK);                  
+                }
+                else
+                {
+                    if (MessageBox.Show("Удолить безвозвратно?", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        Directory.Delete(pathFolder);
+
+                        StreamWriter write = new StreamWriter(logfile, true);
+                        write.WriteLine("[Delete]" + "-Директоия удоленна безвозвратно-" + "[" + new DirectoryInfo(pathFolder).Name + "]" + "[" + new DirectoryInfo(pathFolder).FullName + "]" + "[" + DateTime.Now.ToString() + "]");
+                        write.Close();
+                    }
+                    else
+                    {
+                        Directory.Move(pathFolder, MoveFolder + "\\" + f);
+
+                        StreamWriter write = new StreamWriter(logfile, true);
+                        write.WriteLine("[Delete]" + "-Директоия перемещенна в корзину-" + "[" + new DirectoryInfo(pathFolder).Name + "]" + "[" + new DirectoryInfo(pathFolder).FullName + "]" + "[" + DateTime.Now.ToString() + "]");
+                        write.Close();
+                    }
+                }
             }
             else 
             {
@@ -666,7 +757,22 @@ namespace Kursach
                     }
                     else
                     {
-                        File.Move(sourceFile, destFile);
+                        if (MessageBox.Show("Удолить безвозвратно?", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        {
+                            File.Delete(pathFile);
+
+                            StreamWriter write = new StreamWriter(logfile, true);
+                            write.WriteLine("[Delete]" + "-Файл удолен безвозвратно-" + "[" + new FileInfo(pathFile).Name + "]" + "[" + new FileInfo(pathFile).FullName + "]" + "[" + DateTime.Now.ToString() + "]");
+                            write.Close();
+                        }
+                        else
+                        {
+                            File.Move(sourceFile, destFile);
+
+                            StreamWriter write = new StreamWriter(logfile, true);
+                            write.WriteLine("[Delete]" + "-Файл перемещён в корзину-" + "[" + new FileInfo(pathFile).Name + "]" + "[" + new FileInfo(pathFile).FullName + "]" + "[" + DateTime.Now.ToString() + "]");
+                            write.Close();
+                        }
                     }
 
                 }
@@ -683,10 +789,19 @@ namespace Kursach
                 foreach (var fold in new DirectoryInfo(MoveFolder).GetDirectories())
                 {
                     fold.Delete(true);
+
+                    StreamWriter write = new StreamWriter(logfile, true);
+                    write.WriteLine("[Clear]" + "-Директоия удолена безвозвратно из корзины-" + "[" + fold.Name + "]" + "[" + fold.FullName + "]" + "[" + DateTime.Now.ToString() + "]");
+                    write.Close();
                 }
                 foreach (var file in new DirectoryInfo(MoveFolder).GetFiles())
                 {
                     file.Delete();
+
+                    StreamWriter write = new StreamWriter(logfile, true);
+                    write.WriteLine("[Clear]" + "-Файл удолен безвозвратно из корзины-" + "[" + file.Name + "]" + "[" + file.FullName + "]" + "[" + DateTime.Now.ToString() + "]");
+                    write.Close();
+
                 }
             }
         }      
@@ -696,30 +811,42 @@ namespace Kursach
         
         private void createFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string pathF = path;
             string type = "Folder";
-            Form2Rename renameDialog = new Form2Rename(this, type);
+
+            DirectoryInfo info = new DirectoryInfo(pathF);
+            Form2Rename renameDialog = new Form2Rename(this, type, info);
             renameDialog.ShowDialog(this);
 
             GetItems(path, listView1);
         }
         private void wordToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string pathF = path ;
             string type = "doc";
-            Form2Rename renameDialog = new Form2Rename(this, type);
+
+            DirectoryInfo info = new DirectoryInfo(pathF);
+            Form2Rename renameDialog = new Form2Rename(this, type, info);
             renameDialog.ShowDialog(this);
             GetItems(path, listView1);
         }
         private void exelToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string pathF = path ;
             string type = "xlsx";
-            Form2Rename renameDialog = new Form2Rename(this, type);
+
+            DirectoryInfo info = new DirectoryInfo(pathF);
+            Form2Rename renameDialog = new Form2Rename(this, type, info);
             renameDialog.ShowDialog(this);
             GetItems(path, listView1);
         }
         private void notepadToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string pathF = path ;
             string type = "TXT";
-            Form2Rename renameDialog = new Form2Rename(this, type);
+
+            DirectoryInfo info = new DirectoryInfo(pathF);
+            Form2Rename renameDialog = new Form2Rename(this, type, info);
             renameDialog.ShowDialog(this);
             GetItems(path, listView1);
         }
@@ -736,11 +863,19 @@ namespace Kursach
                     if (cut == 1)
                     {
                         Directory.Move(@"D:\Курсач\Корзина" + '\\' + name, path  + "\\" + name);
+
+                        StreamWriter write = new StreamWriter(logfile, true);
+                        write.WriteLine("[Insert]" + "-Вырезанная директоия вставлена-" + "[" + name + "]" + "[" + new DirectoryInfo(pathFile).FullName + "]" + "[" + DateTime.Now.ToString() + "]");
+                        write.Close();
                     }
                     else
                     {
                         Directory.CreateDirectory(path  + '\\' + name);
                         CopyDirectory(pathFile, path  + '\\' + name, true);
+
+                        StreamWriter write = new StreamWriter(logfile, true);
+                        write.WriteLine("[Insert]" + "-Скопированная директория вставлена-" + "[" + name + "]" + "[" + new DirectoryInfo(pathFile).FullName + "]" + "[" + DateTime.Now.ToString() + "]");
+                        write.Close();
                     }
                 }
                 else
@@ -749,10 +884,18 @@ namespace Kursach
                     {
                         File.Copy(@"D:\Курсач\Корзина" + '\\' + name, path + '\\' + name, true);
                         File.Delete(@"D:\Курсач\Корзина" + '\\' + name);
+
+                        StreamWriter write = new StreamWriter(logfile, true);
+                        write.WriteLine("[Insert]" + "-Вырезанный файл вставлен-" + "[" + name + "]" + "[" + new DirectoryInfo(pathFile).FullName + "]" + "[" + DateTime.Now.ToString() + "]");
+                        write.Close();
                     }
                     else
                     {
                         File.Copy(pathFile, path + '\\' + name, true);
+
+                        StreamWriter write = new StreamWriter(logfile, true);
+                        write.WriteLine("[Insert]" + "-Скопированный файл вставлен-" + "[" + name + "]" + "[" + new DirectoryInfo(pathFile).FullName + "]" + "[" + DateTime.Now.ToString() + "]");
+                        write.Close();
                     }
                 }
                 cut = 0;
@@ -764,18 +907,34 @@ namespace Kursach
         private void controlPanelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("control");
+
+            StreamWriter write = new StreamWriter(logfile, true);
+            write.WriteLine("[Utilities]" + "-Запущенна утилита-" + "[СontrolPanel]" + "[" + DateTime.Now.ToString() + "]");
+            write.Close();
         }
         private void resourceMonitoringToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("Taskmgr.exe");
+
+            StreamWriter write = new StreamWriter(logfile, true);
+            write.WriteLine("[Utilities]" + "-Запущенна утилита-" + "[ResourceMonitoring]" + "[" + DateTime.Now.ToString() + "]");
+            write.Close();
         }
         private void systemInformationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("msinfo32");
+
+            StreamWriter write = new StreamWriter(logfile, true);
+            write.WriteLine("[Utilities]" + "-Запущенна утилита-" + "[SystemInformation]" + "[" + DateTime.Now.ToString() + "]");
+            write.Close();
         }
         private void commandLineToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("cmd");
+
+            StreamWriter write = new StreamWriter(logfile, true);
+            write.WriteLine("[Utilities]" + "-Запущенна утилита-" + "[CommandLine]" + "[" + DateTime.Now.ToString() + "]");
+            write.Close();
         }
 
         private void aboutTheProgramToolStripMenuItem_Click(object sender, EventArgs e)
@@ -784,7 +943,7 @@ namespace Kursach
         }
         private void referenceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Process.Start("readme.txt");
         }
 
 
@@ -897,6 +1056,10 @@ namespace Kursach
                     try
                     {
                         Directory.Move(dragedinfo.FullName, Path.Combine(targetinfo.FullName, dragedinfo.Name));
+
+                        StreamWriter write = new StreamWriter(logfile, true);
+                        write.WriteLine("[DragAndDrop]" + "-Директория перемещена-" + "[" + dragedinfo.Name + "]" + "[" + dragedinfo.FullName + "]" + "[" + DateTime.Now.ToString() + "]");
+                        write.Close();
                     }
                     catch (Exception exception)
                     {
@@ -908,6 +1071,10 @@ namespace Kursach
                     try
                     {
                         File.Move(dragedinfo.FullName, Path.Combine(targetinfo.FullName, dragedinfo.Name));
+
+                        StreamWriter write = new StreamWriter(logfile, true);
+                        write.WriteLine("[DragAndDrop]" + "-Файл перемещена-" + "[" + dragedinfo.Name + "]" + "[" + dragedinfo.FullName + "]" + "[" + DateTime.Now.ToString() + "]");
+                        write.Close();
                     }
                     catch (Exception exception)
                     {
@@ -931,5 +1098,10 @@ namespace Kursach
 
         }
 
+        private void logFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("logfile.txt");
+        }
+        
     }
 }

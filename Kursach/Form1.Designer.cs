@@ -42,6 +42,7 @@ namespace Kursach
             this.InsertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -64,6 +65,8 @@ namespace Kursach
             this.resourceMonitoringToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.systemInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.commandLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.functionalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -117,6 +120,7 @@ namespace Kursach
             this.InsertToolStripMenuItem,
             this.CutToolStripMenuItem,
             this.PropertiesToolStripMenuItem,
+            this.renameToolStripMenuItem,
             this.deleteToolStripMenuItem,
             this.clearToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
@@ -151,6 +155,12 @@ namespace Kursach
             this.PropertiesToolStripMenuItem.Name = "PropertiesToolStripMenuItem";
             resources.ApplyResources(this.PropertiesToolStripMenuItem, "PropertiesToolStripMenuItem");
             this.PropertiesToolStripMenuItem.Click += new System.EventHandler(this.PropertiesToolStripMenuItem_Click);
+            // 
+            // renameToolStripMenuItem
+            // 
+            this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
+            resources.ApplyResources(this.renameToolStripMenuItem, "renameToolStripMenuItem");
+            this.renameToolStripMenuItem.Click += new System.EventHandler(this.renameToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
@@ -243,7 +253,8 @@ namespace Kursach
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Desktop;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mainToolStripMenuItem,
-            this.utilitiesToolStripMenuItem});
+            this.utilitiesToolStripMenuItem,
+            this.functionalToolStripMenuItem});
             resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Name = "menuStrip1";
             // 
@@ -304,6 +315,21 @@ namespace Kursach
             resources.ApplyResources(this.commandLineToolStripMenuItem, "commandLineToolStripMenuItem");
             this.commandLineToolStripMenuItem.Click += new System.EventHandler(this.commandLineToolStripMenuItem_Click);
             // 
+            // functionalToolStripMenuItem
+            // 
+            this.functionalToolStripMenuItem.BackColor = System.Drawing.SystemColors.Info;
+            this.functionalToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.logFileToolStripMenuItem});
+            this.functionalToolStripMenuItem.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.functionalToolStripMenuItem.Name = "functionalToolStripMenuItem";
+            resources.ApplyResources(this.functionalToolStripMenuItem, "functionalToolStripMenuItem");
+            // 
+            // logFileToolStripMenuItem
+            // 
+            this.logFileToolStripMenuItem.Name = "logFileToolStripMenuItem";
+            resources.ApplyResources(this.logFileToolStripMenuItem, "logFileToolStripMenuItem");
+            this.logFileToolStripMenuItem.Click += new System.EventHandler(this.logFileToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -363,6 +389,9 @@ namespace Kursach
         private System.Windows.Forms.ToolStripMenuItem systemInformationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem commandLineToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem insertToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem functionalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem logFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem renameToolStripMenuItem;
     }
 }
 

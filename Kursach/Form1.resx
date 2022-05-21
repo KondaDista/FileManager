@@ -172,7 +172,7 @@
     <value>17, 17</value>
   </metadata>
   <data name="OpenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 22</value>
+    <value>158, 22</value>
   </data>
   <data name="OpenToolStripMenuItem.Text" xml:space="preserve">
     <value>Open</value>
@@ -181,7 +181,7 @@
     <value>Ctrl+C</value>
   </data>
   <data name="CopyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 22</value>
+    <value>158, 22</value>
   </data>
   <data name="CopyToolStripMenuItem.Text" xml:space="preserve">
     <value>Copy</value>
@@ -190,7 +190,7 @@
     <value>Ctrl+V</value>
   </data>
   <data name="InsertToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 22</value>
+    <value>158, 22</value>
   </data>
   <data name="InsertToolStripMenuItem.Text" xml:space="preserve">
     <value>Insert</value>
@@ -199,34 +199,43 @@
     <value>Ctrl+X</value>
   </data>
   <data name="CutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 22</value>
+    <value>158, 22</value>
   </data>
   <data name="CutToolStripMenuItem.Text" xml:space="preserve">
     <value>Cut</value>
   </data>
   <data name="PropertiesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 22</value>
+    <value>158, 22</value>
   </data>
   <data name="PropertiesToolStripMenuItem.Text" xml:space="preserve">
     <value>Properties</value>
+  </data>
+  <data name="renameToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+R</value>
+  </data>
+  <data name="renameToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>158, 22</value>
+  </data>
+  <data name="renameToolStripMenuItem.Text" xml:space="preserve">
+    <value>Rename</value>
   </data>
   <data name="deleteToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Del</value>
   </data>
   <data name="deleteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 22</value>
+    <value>158, 22</value>
   </data>
   <data name="deleteToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete</value>
   </data>
   <data name="clearToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 22</value>
+    <value>158, 22</value>
   </data>
   <data name="clearToolStripMenuItem.Text" xml:space="preserve">
     <value>Clear</value>
   </data>
   <data name="contextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>145, 158</value>
+    <value>159, 180</value>
   </data>
   <data name="&gt;&gt;contextMenuStrip1.Name" xml:space="preserve">
     <value>contextMenuStrip1</value>
@@ -238,7 +247,7 @@
     <value>172, 17</value>
   </metadata>
   <data name="createFolderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="createFolderToolStripMenuItem.Text" xml:space="preserve">
     <value>Create Folder</value>
@@ -262,19 +271,22 @@
     <value>Notepad</value>
   </data>
   <data name="createFIleToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="createFIleToolStripMenuItem.Text" xml:space="preserve">
     <value>Create FIle</value>
   </data>
+  <data name="insertToolStripMenuItem1.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+V</value>
+  </data>
   <data name="insertToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="insertToolStripMenuItem1.Text" xml:space="preserve">
     <value>Insert</value>
   </data>
   <data name="contextMenuStrip2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>145, 70</value>
+    <value>181, 92</value>
   </data>
   <data name="&gt;&gt;contextMenuStrip2.Name" xml:space="preserve">
     <value>contextMenuStrip2</value>
@@ -385,13 +397,13 @@
     <value>327, 17</value>
   </metadata>
   <data name="aboutTheProgramToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="aboutTheProgramToolStripMenuItem.Text" xml:space="preserve">
     <value>About the program</value>
   </data>
   <data name="referenceToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="referenceToolStripMenuItem.Text" xml:space="preserve">
     <value>Reference</value>
@@ -431,6 +443,18 @@
   </data>
   <data name="utilitiesToolStripMenuItem.Text" xml:space="preserve">
     <value>Utilities</value>
+  </data>
+  <data name="logFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="logFileToolStripMenuItem.Text" xml:space="preserve">
+    <value>LogFile</value>
+  </data>
+  <data name="functionalToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 20</value>
+  </data>
+  <data name="functionalToolStripMenuItem.Text" xml:space="preserve">
+    <value>Functional</value>
   </data>
   <data name="menuStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -520,6 +544,12 @@
     <value>PropertiesToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;PropertiesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;renameToolStripMenuItem.Name" xml:space="preserve">
+    <value>renameToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;renameToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;deleteToolStripMenuItem.Name" xml:space="preserve">
@@ -616,6 +646,18 @@
     <value>commandLineToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;commandLineToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;functionalToolStripMenuItem.Name" xml:space="preserve">
+    <value>functionalToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;functionalToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;logFileToolStripMenuItem.Name" xml:space="preserve">
+    <value>logFileToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;logFileToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
