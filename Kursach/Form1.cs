@@ -931,6 +931,5 @@ namespace Kursach
 
         }
 
-
     }
 }
