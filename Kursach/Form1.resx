@@ -151,7 +151,7 @@
     <value>12, 54</value>
   </data>
   <data name="listView1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>647, 361</value>
+    <value>776, 361</value>
   </data>
   <data name="listView1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -247,7 +247,7 @@
     <value>172, 17</value>
   </metadata>
   <data name="createFolderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>144, 22</value>
   </data>
   <data name="createFolderToolStripMenuItem.Text" xml:space="preserve">
     <value>Create Folder</value>
@@ -271,7 +271,7 @@
     <value>Notepad</value>
   </data>
   <data name="createFIleToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>144, 22</value>
   </data>
   <data name="createFIleToolStripMenuItem.Text" xml:space="preserve">
     <value>Create FIle</value>
@@ -280,13 +280,13 @@
     <value>Ctrl+V</value>
   </data>
   <data name="insertToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>144, 22</value>
   </data>
   <data name="insertToolStripMenuItem1.Text" xml:space="preserve">
     <value>Insert</value>
   </data>
   <data name="contextMenuStrip2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 92</value>
+    <value>145, 70</value>
   </data>
   <data name="&gt;&gt;contextMenuStrip2.Name" xml:space="preserve">
     <value>contextMenuStrip2</value>
@@ -397,13 +397,13 @@
     <value>327, 17</value>
   </metadata>
   <data name="aboutTheProgramToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>176, 22</value>
   </data>
   <data name="aboutTheProgramToolStripMenuItem.Text" xml:space="preserve">
     <value>About the program</value>
   </data>
   <data name="referenceToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>176, 22</value>
   </data>
   <data name="referenceToolStripMenuItem.Text" xml:space="preserve">
     <value>Reference</value>
@@ -445,10 +445,34 @@
     <value>Utilities</value>
   </data>
   <data name="logFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>181, 22</value>
   </data>
   <data name="logFileToolStripMenuItem.Text" xml:space="preserve">
     <value>LogFile</value>
+  </data>
+  <data name="windowsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="windowsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="linuxToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="linuxToolStripMenuItem.Text" xml:space="preserve">
+    <value>Linux</value>
+  </data>
+  <data name="cMDToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>181, 22</value>
+  </data>
+  <data name="cMDToolStripMenuItem.Text" xml:space="preserve">
+    <value>CMD</value>
+  </data>
+  <data name="memoryMappedFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>181, 22</value>
+  </data>
+  <data name="memoryMappedFileToolStripMenuItem.Text" xml:space="preserve">
+    <value>MemoryMappedFile</value>
   </data>
   <data name="functionalToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 20</value>
@@ -460,7 +484,7 @@
     <value>0, 0</value>
   </data>
   <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>800, 24</value>
+    <value>799, 24</value>
   </data>
   <data name="menuStrip1.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -487,7 +511,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>800, 458</value>
+    <value>799, 458</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Provodnik</value>
@@ -658,6 +682,30 @@
     <value>logFileToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;logFileToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cMDToolStripMenuItem.Name" xml:space="preserve">
+    <value>cMDToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;cMDToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;windowsToolStripMenuItem.Name" xml:space="preserve">
+    <value>windowsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;windowsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linuxToolStripMenuItem.Name" xml:space="preserve">
+    <value>linuxToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;linuxToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;memoryMappedFileToolStripMenuItem.Name" xml:space="preserve">
+    <value>memoryMappedFileToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;memoryMappedFileToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

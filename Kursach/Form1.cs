@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO.MemoryMappedFiles;
 
 namespace Kursach
 {
@@ -33,7 +34,7 @@ namespace Kursach
             button1.Text = "Обзор";
             button1.Click += new EventHandler(button1_Click);
             button2.Text = "<<";
-            button2.Click += new EventHandler(button2_Click);           
+            button2.Click += new EventHandler(button2_Click);
             Start();
         }
 
@@ -110,7 +111,7 @@ namespace Kursach
             if (Directory.Exists(path))
             {
                 string[] folders = Directory.GetDirectories(path);
-                string[] files =  Directory.GetFiles(path);     
+                string[] files = Directory.GetFiles(path);
                 //FileInfo[] files = new DirectoryInfo(path).GetFiles();
 
                 listView1.Items.Clear();
@@ -152,7 +153,7 @@ namespace Kursach
                             {
                                 sizeSt = size.ToString() + " Gb";
                             }
-                            
+
                             //sizeSt = size.ToString() + " b";
                         }
                         else
@@ -166,11 +167,11 @@ namespace Kursach
                         listView1.Items.Add(lvItem);
                     }
                 }
-                foreach(string f in files)
+                foreach (string f in files)
                 {
                     if ((new DirectoryInfo(f).Attributes & FileAttributes.Hidden) == 0)
                     {
-                        string[] ss = f.Split(new char[] { '\\' });           
+                        string[] ss = f.Split(new char[] { '\\' });
 
                         FileInfo theFile = new FileInfo(f);
                         ListViewItem lvItem = new ListViewItem(theFile.Name);
@@ -237,14 +238,14 @@ namespace Kursach
             else
             {
                 return (Size);
-            }            
-        }  
+            }
+        }
 
 
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyValue == (char)Keys.Enter)
+            if (e.KeyValue == (char)Keys.Enter)
             {
                 if (!textBox1.Text.Contains("System"))
                 {
@@ -255,7 +256,7 @@ namespace Kursach
 
             if (listView1.SelectedItems.Count != 0)
             {
-                if(Directory.Exists(Path.Combine(path, listView1.FocusedItem.Text)))
+                if (Directory.Exists(Path.Combine(path, listView1.FocusedItem.Text)))
                 {
                     if (e.Control && e.KeyCode == Keys.C)
                     {
@@ -305,7 +306,7 @@ namespace Kursach
                     insertToolStripMenuItem1_Click(sender, e);
                 }
             }
-            
+
         }
 
 
@@ -350,7 +351,7 @@ namespace Kursach
                         write.Close();
                     }
                 }
-                else if(listView1.FocusedItem.Text != "System")
+                else if (listView1.FocusedItem.Text != "System")
                 {
                     path += listView1.SelectedItems[0].Text;
                     textBox1.Text = path;
@@ -364,9 +365,9 @@ namespace Kursach
             {
                 if (listView1.SelectedItems.Count != 0 && listView1.FocusedItem.Bounds.Contains(e.Location))
                 {
-                    if(path == null)
+                    if (path == null)
                     {
-                        foreach(var dr in drivers)
+                        foreach (var dr in drivers)
                         {
                             if (dr.Name == listView1.FocusedItem.Text)
                             {
@@ -427,7 +428,7 @@ namespace Kursach
                         }
                     }
 
-                    if(cut == 1)
+                    if (cut == 1)
                     {
                         CopyToolStripMenuItem.Visible = false;
                         CutToolStripMenuItem.Visible = false;
@@ -484,7 +485,7 @@ namespace Kursach
                         write.WriteLine("[Open]" + "-Открытие файла-" + "[" + ff + "]" + "[" + path + '\\' + f + "]" + "[" + DateTime.Now.ToString() + "]");
                         write.Close();
                     }
-                    
+
                 }
                 else
                 {
@@ -616,13 +617,13 @@ namespace Kursach
                     write.Close();
                 }
             }
-            else 
+            else
             {
                 string pathFile = Path.Combine(path, f);
                 FileInfo fileInf = new FileInfo(pathFile);
 
                 if (fileInf.Exists)
-                {                                    
+                {
                     string fileName = Path.GetFileName(pathFile);
                     string destFile = Path.Combine(MoveFolder, fileName);
                     string sourceFile = Path.Combine(MoveFolder, pathFile);
@@ -648,7 +649,7 @@ namespace Kursach
             GetItems(path, listView1);
         }
         private void PropertiesToolStripMenuItem_Click(object sender, EventArgs e)
-        {         
+        {
             string f = listView1.SelectedItems[0].Text;
             string pathF = path + "\\" + f;
 
@@ -662,7 +663,7 @@ namespace Kursach
                            "Время создания: " + new DirectoryInfo(pathF).CreationTime + "\n" +
                            "Время последнего использования: " + new DirectoryInfo(pathF).LastAccessTime + "\n" +
                            "Время последнего изменения: " + new DirectoryInfo(pathF).LastWriteTime);
-                
+
 
             }
             else if (File.Exists(pathF))
@@ -673,7 +674,7 @@ namespace Kursach
                            "Родительский каталог: " + new FileInfo(pathF).DirectoryName + "\n" +
                            "Размер файла: " + new FileInfo(pathF).Length + "\n" +
                            "Расширение файла: " + new FileInfo(pathF).Extension);
-                
+
             }
             else
             {
@@ -693,7 +694,7 @@ namespace Kursach
                             "\n" + "Объём занятой памяти: " + Math.Round(TotalSize - TotalFreeSpace, 2));
                         break;
                     }
-                }             
+                }
             }
         }
         private void renameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -718,7 +719,7 @@ namespace Kursach
 
                 if (Directory.Exists(MoveFolder + '\\' + f))
                 {
-                    MessageBox.Show("Такая директория уже существует", "Внимание!", MessageBoxButtons.OK);                  
+                    MessageBox.Show("Такая директория уже существует", "Внимание!", MessageBoxButtons.OK);
                 }
                 else
                 {
@@ -740,7 +741,7 @@ namespace Kursach
                     }
                 }
             }
-            else 
+            else
             {
                 string pathFile = Path.Combine(path, f);
                 FileInfo fileInf = new FileInfo(pathFile);
@@ -804,11 +805,11 @@ namespace Kursach
 
                 }
             }
-        }      
+        }
 
 
-        
-        
+
+
         private void createFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string pathF = path;
@@ -822,7 +823,7 @@ namespace Kursach
         }
         private void wordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string pathF = path ;
+            string pathF = path;
             string type = "doc";
 
             DirectoryInfo info = new DirectoryInfo(pathF);
@@ -832,7 +833,7 @@ namespace Kursach
         }
         private void exelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string pathF = path ;
+            string pathF = path;
             string type = "xlsx";
 
             DirectoryInfo info = new DirectoryInfo(pathF);
@@ -842,7 +843,7 @@ namespace Kursach
         }
         private void notepadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string pathF = path ;
+            string pathF = path;
             string type = "TXT";
 
             DirectoryInfo info = new DirectoryInfo(pathF);
@@ -862,7 +863,7 @@ namespace Kursach
                 {
                     if (cut == 1)
                     {
-                        Directory.Move(@"D:\Курсач\Корзина" + '\\' + name, path  + "\\" + name);
+                        Directory.Move(@"D:\Курсач\Корзина" + '\\' + name, path + "\\" + name);
 
                         StreamWriter write = new StreamWriter(logfile, true);
                         write.WriteLine("[Insert]" + "-Вырезанная директоия вставлена-" + "[" + name + "]" + "[" + new DirectoryInfo(pathFile).FullName + "]" + "[" + DateTime.Now.ToString() + "]");
@@ -870,8 +871,8 @@ namespace Kursach
                     }
                     else
                     {
-                        Directory.CreateDirectory(path  + '\\' + name);
-                        CopyDirectory(pathFile, path  + '\\' + name, true);
+                        Directory.CreateDirectory(path + '\\' + name);
+                        CopyDirectory(pathFile, path + '\\' + name, true);
 
                         StreamWriter write = new StreamWriter(logfile, true);
                         write.WriteLine("[Insert]" + "-Скопированная директория вставлена-" + "[" + name + "]" + "[" + new DirectoryInfo(pathFile).FullName + "]" + "[" + DateTime.Now.ToString() + "]");
@@ -952,7 +953,7 @@ namespace Kursach
         {
             base.WndProc(ref m);
 
-            if(m.Msg == 0x0219)
+            if (m.Msg == 0x0219)
             {
                 switch ((int)m.WParam)
                 {
@@ -976,9 +977,9 @@ namespace Kursach
 
                             }
                             if (!check)
-                             {
-                                  Start();
-                             }
+                            {
+                                Start();
+                            }
                         }
                         else
                         {
@@ -1090,7 +1091,7 @@ namespace Kursach
         {
             ListViewItem dragover = listView1.HitTest(listView1.PointToClient(new Point(e.X, e.Y))).Item;
 
-            if(dragover != null)
+            if (dragover != null)
             {
                 dragover.Selected = true;
             }
@@ -1102,6 +1103,42 @@ namespace Kursach
         {
             Process.Start("logfile.txt");
         }
-        
+        private void windowsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"D:\Курсач\System\KursachPre\CmdWindows\bin\Debug\CmdWindows");
+        }
+        private void linuxToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"D:\Курсач\System\KursachPre\CmdLinux\bin\Debug\CmdLinux");
+        }
+
+        private void memoryMappedFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Ввод выражения для записи в общую память
+            char[] message = ("Item").ToCharArray();
+
+            //Размер введенного сообщения
+            int size = message.Length;
+
+            //Создание участка разделяемой памяти
+            //Первый параметр - название участка, 
+            //второй - длина участка памяти в байтах: тип char  занимает 2 байта 
+            //плюс четыре байта для одного объекта типа Integer
+            MemoryMappedFile sharedMemory = MemoryMappedFile.CreateOrOpen("MemoryFile", size * 2 + 4);
+
+            //Создаем объект для записи в разделяемый участок памяти
+            using (MemoryMappedViewAccessor writer = sharedMemory.CreateViewAccessor(0, size * 2 + 4))
+            {
+                //запись в разделяемую память
+                //запись размера с нулевого байта в разделяемой памяти
+                writer.Write(0, size);
+                //запись сообщения с четвертого байта в разделяемой памяти
+                writer.WriteArray(4, message, 0, message.Length);
+            }
+
+            textBox2.Text = "Сообщение записано в разделяемую память";
+
+            Process.Start(@"D:\Курсач\System\KursachPre\MemoryMF\bin\Debug\MemoryMF");
+        }
     }
 }

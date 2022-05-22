@@ -67,6 +67,10 @@ namespace Kursach
             this.commandLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.functionalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cMDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.windowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.linuxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.memoryMappedFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -319,7 +323,9 @@ namespace Kursach
             // 
             this.functionalToolStripMenuItem.BackColor = System.Drawing.SystemColors.Info;
             this.functionalToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.logFileToolStripMenuItem});
+            this.logFileToolStripMenuItem,
+            this.cMDToolStripMenuItem,
+            this.memoryMappedFileToolStripMenuItem});
             this.functionalToolStripMenuItem.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.functionalToolStripMenuItem.Name = "functionalToolStripMenuItem";
             resources.ApplyResources(this.functionalToolStripMenuItem, "functionalToolStripMenuItem");
@@ -329,6 +335,32 @@ namespace Kursach
             this.logFileToolStripMenuItem.Name = "logFileToolStripMenuItem";
             resources.ApplyResources(this.logFileToolStripMenuItem, "logFileToolStripMenuItem");
             this.logFileToolStripMenuItem.Click += new System.EventHandler(this.logFileToolStripMenuItem_Click);
+            // 
+            // cMDToolStripMenuItem
+            // 
+            this.cMDToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.windowsToolStripMenuItem,
+            this.linuxToolStripMenuItem});
+            this.cMDToolStripMenuItem.Name = "cMDToolStripMenuItem";
+            resources.ApplyResources(this.cMDToolStripMenuItem, "cMDToolStripMenuItem");
+            // 
+            // windowsToolStripMenuItem
+            // 
+            this.windowsToolStripMenuItem.Name = "windowsToolStripMenuItem";
+            resources.ApplyResources(this.windowsToolStripMenuItem, "windowsToolStripMenuItem");
+            this.windowsToolStripMenuItem.Click += new System.EventHandler(this.windowsToolStripMenuItem_Click);
+            // 
+            // linuxToolStripMenuItem
+            // 
+            this.linuxToolStripMenuItem.Name = "linuxToolStripMenuItem";
+            resources.ApplyResources(this.linuxToolStripMenuItem, "linuxToolStripMenuItem");
+            this.linuxToolStripMenuItem.Click += new System.EventHandler(this.linuxToolStripMenuItem_Click);
+            // 
+            // memoryMappedFileToolStripMenuItem
+            // 
+            this.memoryMappedFileToolStripMenuItem.Name = "memoryMappedFileToolStripMenuItem";
+            resources.ApplyResources(this.memoryMappedFileToolStripMenuItem, "memoryMappedFileToolStripMenuItem");
+            this.memoryMappedFileToolStripMenuItem.Click += new System.EventHandler(this.memoryMappedFileToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -392,6 +424,10 @@ namespace Kursach
         private System.Windows.Forms.ToolStripMenuItem functionalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem logFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem renameToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cMDToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem windowsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem linuxToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem memoryMappedFileToolStripMenuItem;
     }
 }
 
