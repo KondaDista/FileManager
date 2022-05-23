@@ -1,34 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.Diagnostics;
 using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace MemoryMF
+namespace Memory
 {
-    public partial class Form1 : Form
+    class Program
     {
-        public Form1()
-        {
-            InitializeComponent();
-            Start();
-        }
+        private PerformanceCounter theCPUCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+        private PerformanceCounter theMemCounter = new PerformanceCounter("Memory", "Available MBytes");
 
-        public void Start()
+        static void Main(string[] args)
         {
             //Массив для сообщения из общей памяти
             char[] message;
-
-            //Размер введенного сообщения
             int size;
 
             //Получение существующего участка разделяемой памяти
-            //Параметр - название участка
             MemoryMappedFile sharedMemory = MemoryMappedFile.OpenExisting("MemoryFile");
             //Сначала считываем размер сообщения, чтобы создать массив данного размера
             //Integer занимает 4 байта, начинается с первого байта, поэтому передаем цифры 0 и 4
@@ -47,14 +39,17 @@ namespace MemoryMF
                 message = new char[size];
                 reader.ReadArray<char>(0, message, 0, size);
             }
-
-            textBox1.Text = "Получено сообщение";
-            textBox2.Text = "Messege: " + message.ToString();
+            Console.WriteLine("Получено сообщение :");
+            Console.WriteLine(message);
+            Console.WriteLine("Для выхода из программы нажмите любую клавишу");
+            
+            Console.ReadLine();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void Timer_Tick()
         {
-            Start();
+            Console.WriteLine(this.theCPUCounter.NextValue().ToString() + "%" + Environment.NewLine + this.theMemCounter.NextValue().ToString() + "MB");
         }
+
     }
 }

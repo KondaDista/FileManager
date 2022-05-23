@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CmdWindows", "CmdWindows\Cm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CmdLinux", "CmdLinux\CmdLinux.csproj", "{02B5C0CA-B502-4D46-85A0-3674773C0DCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemoryMF", "MemoryMF\MemoryMF.csproj", "{E557D987-9684-4E72-B3DD-223F70E76859}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Memory", "Memory\Memory.csproj", "{0F2A9B05-FBF4-45A3-8566-41CB73ABE8C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{02B5C0CA-B502-4D46-85A0-3674773C0DCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02B5C0CA-B502-4D46-85A0-3674773C0DCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02B5C0CA-B502-4D46-85A0-3674773C0DCF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E557D987-9684-4E72-B3DD-223F70E76859}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E557D987-9684-4E72-B3DD-223F70E76859}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E557D987-9684-4E72-B3DD-223F70E76859}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E557D987-9684-4E72-B3DD-223F70E76859}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F2A9B05-FBF4-45A3-8566-41CB73ABE8C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F2A9B05-FBF4-45A3-8566-41CB73ABE8C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F2A9B05-FBF4-45A3-8566-41CB73ABE8C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F2A9B05-FBF4-45A3-8566-41CB73ABE8C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,6 +10,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.MemoryMappedFiles;
+using System.Management;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Timers;
 
 namespace Kursach
 {
@@ -1112,11 +1116,32 @@ namespace Kursach
             Process.Start(@"D:\Курсач\System\KursachPre\CmdLinux\bin\Debug\CmdLinux");
         }
 
+
+
         private void memoryMappedFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Ввод выражения для записи в общую память
-            char[] message = ("Item").ToCharArray();
+            #region Name
+            string name = "";
+            foreach (var p in Process.GetProcessesByName("explorer"))
+            {
+                name = GetProcessOwner(p.Id);
+            }
+            var usernameParts = name.Split('\\');
+            name = usernameParts[usernameParts.Length - 1];
+            #endregion
 
+            #region CP
+            Timer_Tick();
+            #endregion
+
+            #region Memory
+            MEMORYSTATUS memStatus = new MEMORYSTATUS();
+            GlobalMemoryStatus(ref memStatus);
+            string dwAvail = memStatus.dwAvailPageFile.ToString();
+            long dwInt = long.Parse(dwAvail) / 1024;
+            #endregion   
+
+            char[] message = ("Имя пользователя: " + name + "\n" + "использованное время ЦП: "+ CP + "\n" + "Количество свободных байтов файла подкачки: " + dwInt + " Kb" + "\n").ToCharArray();
             //Размер введенного сообщения
             int size = message.Length;
 
@@ -1138,7 +1163,74 @@ namespace Kursach
 
             textBox2.Text = "Сообщение записано в разделяемую память";
 
-            Process.Start(@"D:\Курсач\System\KursachPre\MemoryMF\bin\Debug\MemoryMF");
+            Process.Start(@"D:\Курсач\System\KursachPre\Memory\bin\Debug\Memory");
+            
         }
+        #region Name
+        public static string GetProcessOwner(int processId)
+        {
+            var query = "Select * From Win32_Process Where ProcessID = " + processId;
+            ManagementObjectCollection processList;
+
+            using (var searcher = new ManagementObjectSearcher(query))
+            {
+                processList = searcher.Get();
+            }
+
+            foreach (var mo in processList.OfType<ManagementObject>())
+            {
+                object[] argList = { string.Empty, string.Empty };
+                var returnVal = Convert.ToInt32(mo.InvokeMethod("GetOwner", argList));
+
+                if (returnVal == 0)
+                {
+                    // return DOMAIN\user
+                    return argList[1] + "\\" + argList[0];
+                }
+            }
+
+            return "NO OWNER";
+        }
+        #endregion
+
+        #region ЦП
+        private PerformanceCounter theCPUCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+        private PerformanceCounter theMemCounter = new PerformanceCounter("Memory", "Available MBytes");
+
+        private string CP;
+        public void Timer_Tick()
+        {
+            CP = this.theCPUCounter.NextValue().ToString() + "%     " + this.theMemCounter.NextValue().ToString() + "MB";
+        }
+        #endregion
+
+        #region Работа с Памятью
+
+        //апи функция для просмотра памяти
+        [DllImport("kernel32.dll")]
+        //для выделения памяти
+        public static extern IntPtr GlobalAlloc(int con, int size);
+        [DllImport("kernel32.dll")]
+        //для освобождения
+        public static extern int GlobalFree(IntPtr start);
+        [DllImport("kernel32.dll")]
+        public static extern void GlobalMemoryStatus(ref MEMORYSTATUS lpBuffer);
+        public struct MEMORYSTATUS
+        {
+            public UInt32 dwLength;               //Размер структуры, в байтах-хз че это
+            public UInt32 dwMemoryLoad;           //процент занятой памяти
+            public UInt32 dwTotalPhys;            //общее кол-во физической(оперативной) памяти
+            public UInt32 dwAvailPhys;            //свободное кол-во физической(оперативной) памяти
+            public UInt32 dwTotalPageFile;        //предел памяти для системы или текущего процесса
+            public UInt32 dwAvailPageFile;        //Максимальный объем памяти,который текущий процесс может передать в байтах.
+            public UInt32 dwTotalVirtual;         //общее количество виртуальной памяти(файл подкачки)
+            public UInt32 dwAvailVirtual;         //свободное количество виртуальной памяти(файл подкачки)
+            public UInt32 dwAvailExtendedVirtual; //Зарезервировано. Постоянно 0.
+        }
+        #endregion
+
+        
+
+
     }
 }
