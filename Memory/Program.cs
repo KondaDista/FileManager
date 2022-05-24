@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,28 @@ namespace Memory
 {
     class Program
     {
+        private static PerformanceCounter theCPUCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+        private static PerformanceCounter theMemCounter = new PerformanceCounter("Memory", "Available MBytes");
+        private static string CP;
+        private static bool stopProcessing = true;
+
+        public static string logfileMemory = "logfileMemory.txt";
+
+        public static async Task Timer_TickAsync()
+        {
+            if (stopProcessing)
+            {
+                CP = theCPUCounter.NextValue().ToString() + "%    " + theMemCounter.NextValue().ToString() + "MB";
+                Console.WriteLine(CP + "   Для остоновки программы нажмите любую клавишу");
+                StreamWriter write = new StreamWriter(logfileMemory, true);
+                write.WriteLine(CP);
+                write.Close();
+
+                await Task.Delay(1000);
+                Timer_TickAsync();
+            }
+        }
+
         static void Main(string[] args)
         {
             //Массив для сообщения из общей памяти
@@ -38,10 +61,39 @@ namespace Memory
             }
             Console.WriteLine("Получено сообщение :");
             Console.WriteLine(message);
-            Console.WriteLine("Для выхода из программы нажмите любую клавишу");
-            
+
+            StreamWriter write = new StreamWriter(logfileMemory, true);
+            write.WriteLine(message);
+            write.Close();
+
+            Console.WriteLine("Динамический список использованного времени ЦП:");
+            Timer_TickAsync();
+
             Console.ReadLine();
-        }
+            stopProcessing = false;
+            Wait();
+
+            void Wait()
+            {
+                Console.WriteLine("Для продоложения вывода нажмите Y, для выхода из программы и сохранении информации нажмите - N");
+                stopProcessing = Console.ReadKey(true).Key == ConsoleKey.Y;
+
+                if (stopProcessing)
+                {
+                    Timer_TickAsync();
+                    Console.ReadLine();
+                    stopProcessing = false;
+                    Wait();
+                }
+                else
+                {
+                    Console.WriteLine("Для продоложения введите имя файла");
+                    string name = Console.ReadLine();
+                    File.Copy(@"E:\FileManager\System\KursachPre\Kursach\bin\Debug\logfileMemory.txt", @"E:\FileManager\System\KursachPre\Kursach\bin\Debug" + '\\' + name +".txt", true);
+
+                }
+            }
+        }     
 
     }
 }

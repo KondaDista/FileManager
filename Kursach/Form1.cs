@@ -106,33 +106,95 @@ namespace Kursach
 
         private void GetItems(string path, ListView listView)
         {
-            if (Directory.Exists(path))
+            if (discs.Contains(path) && new DriveInfo(path).DriveType == DriveType.Fixed)
             {
-                string[] folders = Directory.GetDirectories(path);
-                string[] files = Directory.GetFiles(path);
-
                 listView1.Items.Clear();
 
-                foreach (string f in folders)
+                DirectoryInfo info = new DirectoryInfo(path);
+
+                foreach (var i in info.GetDirectories())
                 {
-                    if ((new DirectoryInfo(f).Attributes & FileAttributes.Hidden) == 0)
+                    if (i.Name.Equals("FileManager"))
                     {
-                        string[] ss = f.Split(new char[] { '\\' });
+                        listView1.Items.Add(i.Name, 1);
+                    }
+                }
+            }
+            else {
+                if (Directory.Exists(path))
+                {
+                    string[] folders = Directory.GetDirectories(path);
+                    string[] files = Directory.GetFiles(path);
 
-                        DirectoryInfo theFolder = new DirectoryInfo(f);
-                        ListViewItem lvItem = new ListViewItem(theFolder.Name);
+                    listView1.Items.Clear();
 
-                        long size = DirSize(theFolder, 163530033582);
-                        int i;
-                        string sizeSt = "";
-
-                        if (size != 0)
+                    foreach (string f in folders)
+                    {
+                        if ((new DirectoryInfo(f).Attributes & FileAttributes.Hidden) == 0)
                         {
+                            string[] ss = f.Split(new char[] { '\\' });
+
+                            DirectoryInfo theFolder = new DirectoryInfo(f);
+                            ListViewItem lvItem = new ListViewItem(theFolder.Name);
+
+                            long size = DirSize(theFolder, 163530033582);
+                            int i;
+                            string sizeSt = "";
+
+                            if (size != 0)
+                            {
+                                for (i = 0; size > 1024; i++)
+                                {
+                                    size /= 1024;
+                                }
+
+                                if (i == 0)
+                                {
+                                    sizeSt = size.ToString() + " b";
+                                }
+                                else if (i == 1)
+                                {
+                                    sizeSt = size.ToString() + " Kb";
+                                }
+                                else if (i == 2)
+                                {
+                                    sizeSt = size.ToString() + " Mb";
+                                }
+                                else if (i == 3)
+                                {
+                                    sizeSt = size.ToString() + " Gb";
+                                }
+
+                                //sizeSt = size.ToString() + " b";
+                            }
+                            else
+                            {
+                                sizeSt = "";
+                            }
+
+                            lvItem.SubItems.Add(sizeSt);
+                            lvItem.SubItems.Add(theFolder.LastWriteTime.ToShortDateString());
+                            lvItem.SubItems.Add(theFolder.LastWriteTime.ToShortTimeString());
+                            listView1.Items.Add(lvItem);
+                        }
+                    }
+                    foreach (string f in files)
+                    {
+                        if ((new DirectoryInfo(f).Attributes & FileAttributes.Hidden) == 0)
+                        {
+                            string[] ss = f.Split(new char[] { '\\' });
+
+                            FileInfo theFile = new FileInfo(f);
+                            ListViewItem lvItem = new ListViewItem(theFile.Name);
+
+                            long size = theFile.Length;
+                            int i;
+                            string sizeSt = "";
+
                             for (i = 0; size > 1024; i++)
                             {
                                 size /= 1024;
                             }
-
                             if (i == 0)
                             {
                                 sizeSt = size.ToString() + " b";
@@ -150,57 +212,11 @@ namespace Kursach
                                 sizeSt = size.ToString() + " Gb";
                             }
 
-                            //sizeSt = size.ToString() + " b";
+                            lvItem.SubItems.Add(sizeSt);
+                            lvItem.SubItems.Add(theFile.LastWriteTime.ToShortDateString());
+                            lvItem.SubItems.Add(theFile.LastWriteTime.ToShortTimeString());
+                            listView1.Items.Add(lvItem);
                         }
-                        else
-                        {
-                            sizeSt = "";
-                        }
-
-                        lvItem.SubItems.Add(sizeSt);
-                        lvItem.SubItems.Add(theFolder.LastWriteTime.ToShortDateString());
-                        lvItem.SubItems.Add(theFolder.LastWriteTime.ToShortTimeString());
-                        listView1.Items.Add(lvItem);
-                    }
-                }
-                foreach (string f in files)
-                {
-                    if ((new DirectoryInfo(f).Attributes & FileAttributes.Hidden) == 0)
-                    {
-                        string[] ss = f.Split(new char[] { '\\' });
-
-                        FileInfo theFile = new FileInfo(f);
-                        ListViewItem lvItem = new ListViewItem(theFile.Name);
-
-                        long size = theFile.Length;
-                        int i;
-                        string sizeSt = "";
-
-                        for (i = 0; size > 1024; i++)
-                        {
-                            size /= 1024;
-                        }
-                        if (i == 0)
-                        {
-                            sizeSt = size.ToString() + " b";
-                        }
-                        else if (i == 1)
-                        {
-                            sizeSt = size.ToString() + " Kb";
-                        }
-                        else if (i == 2)
-                        {
-                            sizeSt = size.ToString() + " Mb";
-                        }
-                        else if (i == 3)
-                        {
-                            sizeSt = size.ToString() + " Gb";
-                        }
-
-                        lvItem.SubItems.Add(sizeSt);
-                        lvItem.SubItems.Add(theFile.LastWriteTime.ToShortDateString());
-                        lvItem.SubItems.Add(theFile.LastWriteTime.ToShortTimeString());
-                        listView1.Items.Add(lvItem);
                     }
                 }
             }
@@ -549,7 +565,7 @@ namespace Kursach
                 {
                     if (cut == 1)
                     {
-                        Directory.Move(@"D:\Курсач\Корзина" + '\\' + name, path + '\\' + listView1.FocusedItem.Text + "\\" + name);
+                        Directory.Move(@"D:\FileManager\Корзина" + '\\' + name, path + '\\' + listView1.FocusedItem.Text + "\\" + name);
 
                         StreamWriter write = new StreamWriter(logfile, true);
                         write.WriteLine("[Insert]" + "-Вырезанная директоия вставлена-" + "[" + name + "]" + "[" + new DirectoryInfo(pathFile).FullName + "]" + "[" + DateTime.Now.ToString() + "]");
@@ -569,8 +585,8 @@ namespace Kursach
                 {
                     if (cut == 1)
                     {
-                        File.Copy(@"D:\Курсач\Корзина" + '\\' + name, path + '\\' + listView1.FocusedItem.Text + '\\' + name, true);
-                        File.Delete(@"D:\Курсач\Корзина" + '\\' + name);
+                        File.Copy(@"D:\FileManager\Корзина" + '\\' + name, path + '\\' + listView1.FocusedItem.Text + '\\' + name, true);
+                        File.Delete(@"D:\FileManager\Корзина" + '\\' + name);
 
                         StreamWriter write = new StreamWriter(logfile, true);
                         write.WriteLine("[Insert]" + "-Вырезанный файл вставлен-" + "[" + name + "]" + "[" + new DirectoryInfo(pathFile).FullName + "]" + "[" + DateTime.Now.ToString() + "]");
@@ -587,13 +603,17 @@ namespace Kursach
                 }
                 cut = 0;
             }
+            else
+            {
+                MessageBox.Show("Такая директория или файл уже существует", "Внимание!", MessageBoxButtons.OK);
+            }
 
             GetItems(path, listView1);
         }
         private void CutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string f = listView1.FocusedItem.Text;
-            string MoveFolder = @"D:\Курсач\Корзина";
+            string MoveFolder = @"D:\FileManager\Корзина";
 
             if (Directory.Exists(path + "\\" + f))
             {
@@ -708,7 +728,7 @@ namespace Kursach
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string f = listView1.FocusedItem.Text;
-            string MoveFolder = @"D:\Курсач\Корзина";
+            string MoveFolder = @"D:\FileManager\Корзина";
 
             if (Directory.Exists(path + "\\" + f))
             {
@@ -780,7 +800,7 @@ namespace Kursach
         }
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string MoveFolder = @"D:\Курсач\Корзина";
+            string MoveFolder = @"D:\FileManager\Корзина";
 
             if (MessageBox.Show("Вы уверенны, что хотите отчистить корзину?", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
@@ -856,11 +876,11 @@ namespace Kursach
 
             if (!Directory.Exists(pathFile + "\\" + name) && !File.Exists(pathFile + "\\" + name))
             {
-                if (Directory.Exists(pathFile) || Directory.Exists(@"D:\Курсач\Корзина" + '\\' + name))
+                if (Directory.Exists(pathFile) || Directory.Exists(@"D:\FileManager\Корзина" + '\\' + name))
                 {
                     if (cut == 1)
                     {
-                        Directory.Move(@"D:\Курсач\Корзина" + '\\' + name, path + "\\" + name);
+                        Directory.Move(@"D:\FileManager\Корзина" + '\\' + name, path + "\\" + name);
 
                         StreamWriter write = new StreamWriter(logfile, true);
                         write.WriteLine("[Insert]" + "-Вырезанная директоия вставлена-" + "[" + name + "]" + "[" + new DirectoryInfo(pathFile).FullName + "]" + "[" + DateTime.Now.ToString() + "]");
@@ -880,8 +900,8 @@ namespace Kursach
                 {
                     if (cut == 1)
                     {
-                        File.Copy(@"D:\Курсач\Корзина" + '\\' + name, path + '\\' + name, true);
-                        File.Delete(@"D:\Курсач\Корзина" + '\\' + name);
+                        File.Copy(@"D:\FileManager\Корзина" + '\\' + name, path + '\\' + name, true);
+                        File.Delete(@"D:\FileManager\Корзина" + '\\' + name);
 
                         StreamWriter write = new StreamWriter(logfile, true);
                         write.WriteLine("[Insert]" + "-Вырезанный файл вставлен-" + "[" + name + "]" + "[" + new DirectoryInfo(pathFile).FullName + "]" + "[" + DateTime.Now.ToString() + "]");
@@ -897,6 +917,10 @@ namespace Kursach
                     }
                 }
                 cut = 0;
+            }
+            else
+            {
+                MessageBox.Show("Такая директория или файл уже существует", "Внимание!", MessageBoxButtons.OK);
             }
             GetItems(path, listView1);
         }
@@ -1097,17 +1121,35 @@ namespace Kursach
 
         }
 
+
+        private string FindPath(string name)
+        {
+            foreach (var disc in DriveInfo.GetDrives())
+            {
+                foreach (var manag in Directory.GetDirectories(disc.Name, "FileManager"))
+                {
+                    foreach (var dirs in new DirectoryInfo(Path.Combine(disc.Name, manag)).GetDirectories(name, SearchOption.AllDirectories))
+                    {
+                        return dirs.FullName;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+
         private void logFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("logfile.txt");
         }
         private void windowsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"D:\FileManager\System\KursachPre\CmdWindows\bin\Debug\CmdWindows");
+            Process.Start(Path.Combine(FindPath("CmdWindows"), "bin\\Debug\\CmdWindows"));
         }
         private void linuxToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"D:\FileManager\System\KursachPre\CmdLinux\bin\Debug\CmdLinux");
+            Process.Start(Path.Combine(FindPath("CmdLinux"), "bin\\Debug\\CmdLinux"));
         }
 
 
@@ -1135,7 +1177,7 @@ namespace Kursach
             long dwInt = long.Parse(dwAvail) / 1024;
             #endregion   
 
-            char[] message = ("Имя пользователя: " + name + "\n" + "использованное время ЦП: "+ CP + "\n" + "Количество свободных байтов файла подкачки: " + dwInt + " Kb" + "\n").ToCharArray();
+            char[] message = ("Имя пользователя: " + name + "\n"+ "Количество свободных байтов файла подкачки: " + dwInt + " Kb" + "\n" + "использованное время ЦП: "+ CP + "\n" ).ToCharArray();
             //Размер введенного сообщения
             int size = message.Length;
 
@@ -1157,9 +1199,10 @@ namespace Kursach
 
             textBox2.Text = "Сообщение записано в разделяемую память";
 
-            Process.Start(@"D:\Курсач\System\KursachPre\Memory\bin\Debug\Memory");
+            Process.Start(Path.Combine(FindPath("Memory"), "bin\\Debug\\Memory"));
             
         }
+
         #region Name
         public static string GetProcessOwner(int processId)
         {
