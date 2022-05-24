@@ -247,31 +247,31 @@
     <value>172, 17</value>
   </metadata>
   <data name="createFolderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="createFolderToolStripMenuItem.Text" xml:space="preserve">
     <value>Create Folder</value>
   </data>
   <data name="wordToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="wordToolStripMenuItem.Text" xml:space="preserve">
     <value>Word</value>
   </data>
   <data name="exelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="exelToolStripMenuItem.Text" xml:space="preserve">
-    <value>Exel</value>
+    <value>Excel</value>
   </data>
   <data name="notepadToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="notepadToolStripMenuItem.Text" xml:space="preserve">
     <value>Notepad</value>
   </data>
   <data name="createFIleToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="createFIleToolStripMenuItem.Text" xml:space="preserve">
     <value>Create FIle</value>
@@ -280,13 +280,13 @@
     <value>Ctrl+V</value>
   </data>
   <data name="insertToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="insertToolStripMenuItem1.Text" xml:space="preserve">
     <value>Insert</value>
   </data>
   <data name="contextMenuStrip2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>145, 70</value>
+    <value>181, 92</value>
   </data>
   <data name="&gt;&gt;contextMenuStrip2.Name" xml:space="preserve">
     <value>contextMenuStrip2</value>
@@ -451,13 +451,13 @@
     <value>LogFile</value>
   </data>
   <data name="windowsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>123, 22</value>
   </data>
   <data name="windowsToolStripMenuItem.Text" xml:space="preserve">
     <value>Windows</value>
   </data>
   <data name="linuxToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>123, 22</value>
   </data>
   <data name="linuxToolStripMenuItem.Text" xml:space="preserve">
     <value>Linux</value>

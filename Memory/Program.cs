@@ -11,9 +11,6 @@ namespace Memory
 {
     class Program
     {
-        private PerformanceCounter theCPUCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
-        private PerformanceCounter theMemCounter = new PerformanceCounter("Memory", "Available MBytes");
-
         static void Main(string[] args)
         {
             //Массив для сообщения из общей памяти
@@ -44,11 +41,6 @@ namespace Memory
             Console.WriteLine("Для выхода из программы нажмите любую клавишу");
             
             Console.ReadLine();
-        }
-
-        public void Timer_Tick()
-        {
-            Console.WriteLine(this.theCPUCounter.NextValue().ToString() + "%" + Environment.NewLine + this.theMemCounter.NextValue().ToString() + "MB");
         }
 
     }

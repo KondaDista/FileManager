@@ -27,11 +27,6 @@ namespace Kursach
         DriveInfo[] drivers;
         public string logfile = "logfile.txt";
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         public Form1()
         {
             InitializeComponent();
@@ -61,7 +56,6 @@ namespace Kursach
         {
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
             folderBrowserDialog.ShowNewFolderButton = false;
-            //folderBrowserDialog.RootFolder = Environment.SpecialFolder.Desktop;
 
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
@@ -116,7 +110,6 @@ namespace Kursach
             {
                 string[] folders = Directory.GetDirectories(path);
                 string[] files = Directory.GetFiles(path);
-                //FileInfo[] files = new DirectoryInfo(path).GetFiles();
 
                 listView1.Items.Clear();
 
@@ -125,7 +118,6 @@ namespace Kursach
                     if ((new DirectoryInfo(f).Attributes & FileAttributes.Hidden) == 0)
                     {
                         string[] ss = f.Split(new char[] { '\\' });
-                        // listView1.Items.Add(ss[ss.Length - 1], ss[ss.Length - 1] + Environment.NewLine);
 
                         DirectoryInfo theFolder = new DirectoryInfo(f);
                         ListViewItem lvItem = new ListViewItem(theFolder.Name);
@@ -312,6 +304,7 @@ namespace Kursach
             }
 
         }
+
 
 
         private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -1039,6 +1032,7 @@ namespace Kursach
                 listView1.DoDragDrop(itemdrag, DragDropEffects.Move);
             }
         }
+
         private void listView1_DragDrop(object sender, DragEventArgs e)
         {
             ListViewItem item = listView1.SelectedItems[0];
@@ -1109,11 +1103,11 @@ namespace Kursach
         }
         private void windowsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"D:\Курсач\System\KursachPre\CmdWindows\bin\Debug\CmdWindows");
+            Process.Start(@"D:\FileManager\System\KursachPre\CmdWindows\bin\Debug\CmdWindows");
         }
         private void linuxToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"D:\Курсач\System\KursachPre\CmdLinux\bin\Debug\CmdLinux");
+            Process.Start(@"D:\FileManager\System\KursachPre\CmdLinux\bin\Debug\CmdLinux");
         }
 
 
@@ -1217,7 +1211,7 @@ namespace Kursach
         public static extern void GlobalMemoryStatus(ref MEMORYSTATUS lpBuffer);
         public struct MEMORYSTATUS
         {
-            public UInt32 dwLength;               //Размер структуры, в байтах-хз че это
+            public UInt32 dwLength;               //Размер структуры, в байтах
             public UInt32 dwMemoryLoad;           //процент занятой памяти
             public UInt32 dwTotalPhys;            //общее кол-во физической(оперативной) памяти
             public UInt32 dwAvailPhys;            //свободное кол-во физической(оперативной) памяти
